@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AlunosAPI.Models;
+using AlunosAPI.Util;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlunosAPI.Controllers
@@ -12,34 +14,43 @@ namespace AlunosAPI.Controllers
     {
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        [Route("listagem")]
+        public List<AlunoModel> Listagem()
         {
-            return new string[] { "value1", "value2" };
+            var studentsList = new AlunoModel().GetStudents();
+            return studentsList;
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet]
+        [Route("listagem/aluno/{id}")]
+        public AlunoModel RetornaAluno(int id)
         {
-            return "value";
+            var aluno = new AlunoModel().RetornaAluno(id.ToString());
+            return aluno;
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public void Post([FromBody] AlunoModel aluno)
         {
+            aluno.RegisterStudent();
         }
 
         // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPut]
+        [Route("atualizar/{id}")]
+        public void UpdateStudent(int id, [FromBody] AlunoModel aluno)
         {
+            aluno.UpdateStudent(id);
         }
 
         // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        [Route("apagar/{id}")]
+        public void DeleteStudent(int id)
         {
+            new AlunoModel().DeleteStudent(id);
         }
     }
 }

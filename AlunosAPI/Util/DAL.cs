@@ -16,7 +16,7 @@ namespace AlunosAPI.Util
         public static string uid = "root";
         public static string pwd = "";
 
-        public static string connectionString = $"Server={server};Database={database};Uid={uid};Pwd={pwd};Sslmode=none;";
+        public static string connectionString = $"Server={server};Database={database};Uid={uid};Pwd={pwd};Sslmode=none;charset=utf8";
 
         public DAL()
         {
